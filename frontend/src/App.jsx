@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import io from "socket.io-client";
 import Editor from "@monaco-editor/react";
+import Avatar from "@mui/material/Avatar";
 
 const socket = io("https://realtime-code-editor-zwp3.onrender.com");
 
@@ -123,10 +124,19 @@ const App = () => {
         <h3>Users in Room:</h3>
         <ul>
           {users.map((user, index) => (
-            <li key={index}>{user.slice(0, 8)}...</li>
+            <li key={index}>
+              <Avatar>
+                {user
+                  .split(" ")
+                  .map((name) => name[0].toUpperCase())
+                  .join("")}
+              </Avatar>
+              {user.slice(0, 8)}...
+            </li>
           ))}
         </ul>
         <p className="typing-indicator">{typing}</p>
+
         <select
           className="language-selector"
           value={language}
